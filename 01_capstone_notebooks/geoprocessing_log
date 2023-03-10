@@ -1,0 +1,59 @@
+Geoprocessing Log
+
+Select by Location
+	Select features from:
+		santa_monica_regular_points_005
+	where the features
+		are within
+	By comparing the features from
+		santa_monica_fire_perimeters
+
+# The following worked to join the perimeter data to the point data
+Join attributes by Location
+    join to features in
+        santa_monica_fire_perimeters
+    features they
+        contain
+    by comparing to
+        santa_monica_regular_points_005
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        _perim
+    joined layer
+        sm_perim_join_contain
+
+Sample raster values
+    input layer
+       santa_monica_regular_points_005
+    raster layer
+        srtm_1arcs (elevation)
+    output column prefix
+        elevation_
+    sampled (create new layer name)
+        sm_points_elevation
+
+Sample raster values
+    input layer
+       sm_points_elevation_aspect
+    raster layer
+        srtm_1arcs (elevation)
+    output column prefix
+        aspect_
+    sampled (create new layer name)
+        sm_points_elevation_aspect
+
+Join attributes by Location
+    join to features in
+        santa_monica_fire_perimeters
+    features they
+        contain
+    by comparing to
+        sm_points_elevation_aspect
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        _perim
+    joined layer
+        sm_elevasp_perim_join_contain
+
