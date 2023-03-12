@@ -57,3 +57,17 @@ Join attributes by Location
     joined layer
         sm_elevasp_perim_join_contain
 
+2023-03-12
+Join attributes by Location
+    join to features in
+        santa_monica_fire_perimeters
+    features they
+        (none)
+    by comparing to
+        sm_points_elevation_aspect
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        _perim
+    joined layer
+        sm_elevasp_perim_join_contain
