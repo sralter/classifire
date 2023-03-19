@@ -57,7 +57,7 @@ Join attributes by Location
     joined layer
         sm_elevasp_perim_join_contain
 
-2023-03-12
+#NOT THIS ONE#
 Join attributes by Location
     join to features in
         santa_monica_fire_perimeters
@@ -71,3 +71,130 @@ Join attributes by Location
         _perim
     joined layer
         sm_elevasp_perim_join_contain
+        location: 
+#NOT THIS ONE#
+
+2023-03-12
+
+Clip
+Note: clip base 005 point layer to sm_bounds_water (/Users/sra/Desktop/Data_Science_2023/_capstone/shapefiles/santa_monica_bounds/sm_bounds_water.shp). This way, the point layer will not have a bias to water, where no fires are present.
+	Input layer
+		santa_monica_regular_points_005
+		/Users/sra/Desktop/Data_Science_2023/_capstone/shapefiles/santa_monica_regular_points_005/santa_monica_regular_points_005.geojson
+	Overlay layer
+		sm_bounds_water
+		/Users/sra/Desktop/Data_Science_2023/_capstone/shapefiles/santa_monica_bounds/sm_bounds_water.shp
+	Clipped
+		sm_points_005_water
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/santa_monica_regular_points_005/sm_points_005_water.geojson
+
+Note: this will join features and also create a layer of points that are NOT overlapping with the fire points
+Join Attributes by Location
+	join to features in 
+		sm_points_005_water
+	features they
+		intersect
+	by comparing to
+		santa_monica_fire_perimeters
+	join type
+		create separate feature for each matching feature (one-to-many)
+	joined field prefix
+		_point
+	created layer
+		sm_points_005_nofire
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_points_005_nofire.geojson
+	unjoinable features from first layer
+		sm_points_005_nofire
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_points_005_nofire.geojson
+
+2023-03-18
+
+Sample Raster Values
+Note: I am restarting the point extraction process to make sure I get it right. Add elevation and aspect data from those rasters to each point in my point layer. First, add elevation.
+	Input layer
+		sm_points_005_water
+	Raster layer
+		srtm_1arcs
+	Output column prefix
+		elevation_
+	Sampled
+		sm_points_005_elev
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/points_elev/sm_points_005_elev.geojson
+
+Sample Raster Values
+Note: from the joined 005points+elevation, now add aspect.
+	Input layer
+		sm_points_005_water_elev
+	Raster layer
+		srtm_1arcs_aspect
+	Output column prefix
+		asp_
+	Sampled
+		sm_points_005_elev_asp
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/points_elev_aspect/sm_points_005_elev_asp.geojson
+
+Join attributes by Location
+Note: this will join the elev and asp point layer to every instance where there is overlap with the santa monica fire perimeters
+    join to features in
+        santa_monica_fire_perimeters
+        /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters.geojson
+    features they
+        contain
+    by comparing to
+        sm_points_005_elev_asp
+    Fields to add
+    	(all fields)
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        perim_
+    joined layer
+    	sm_elev_asp_join_perim_contain
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_contain.geojson
+        sm_elevasp_perim_join_contain
+    Unjoinable features from first layer
+    	sm_elevasp_perim_join_unjoinable
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elevasp_perim_join_unjoinable.geojson
+
+2023-03-19
+
+Join Attributes by Location
+Note: this time, I need to create a point layer that does not have fire perimeters overlapping them. This will be a point layer that contains elevation and aspect like the other layer, but has no fire perimeter data appended to it.
+	This did not work as intended. You need to specify a features they... selection.
+    join to features in
+        sm_points_005_elev_asp
+        /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/points_elev_aspect/sm_points_005_elev_asp.geojson
+    features they
+        (none)
+    by comparing to
+        santa_monica_fire_perimeters
+        /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters.geojson
+    Fields to add
+    	(all fields)
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        perim_
+    joined layer
+    	sm_elev_asp_join_perim_noncontain
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_noncontain.geojson
+    Unjoinable features from first layer
+    	sm_elev_asp_join_perim_noncontain
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_noncontain_unjoinable.geojson
+
+Vector>Geoprocessing Tools>Difference
+Note: this should do what I want - clip the points layer to only include points that 
+	input layer
+		sm_points_005_elev_asp
+	overlay layer
+		santa_monica_fire_perimeters
+	difference
+		sm_elev_asp_join_perim_nofire
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_nofire.geojson
+
+Goal: clip orthoimage raster of santa monica mountains to the extent of the fire perimeter layer.
+	First, I need to remove records in the perimeter layer that are after 2018, because the orthoimagery is only from 2018-07-22 to 24. This I will do in QGIS for now.
+	1. Duplicate santa_monica_fire_perimeters to a new layer, santa_monica_fire_perimeterse_le2018, for less than or equal to 2018. Location: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters_le2018.geojson
+	2. Remove records in the attribute table that are from 2019 or later.
+
+
