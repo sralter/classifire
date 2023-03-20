@@ -1,0 +1,29 @@
+notebook index
+
+alter_samuel_capstone_crs
+coordinate reference system transformation
+
+alter_samuel_capstone_exploration
+basic eda on a range of notebooks
+
+alter_samuel_capstone_geoanalysis
+modeling on the geographic data (elevation and aspect)
+
+alter_samuel_capstone_imageanalysis
+modeling on the satellite images (fire/no fire)
+
+alter_samuel_capstone_perimeters
+processing the perimeter dataset
+
+alter_samuel_capstone_satimagery_scratchpad
+abandoned/extra processing steps for satellite images
+
+alter_samuel_capstone_satimagery
+processing steps for satellite images
+
+alter_samuel_capstone_weather
+processing steps for processing weather data
+
+geoprocessing_log
+steps taken and rationale for various geographic processes, like joins 
+and clips
