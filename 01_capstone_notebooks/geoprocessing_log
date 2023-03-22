@@ -252,5 +252,4 @@ Goal: clip orthoimage raster of santa monica mountains to the extent of the fire
 					-9999.0
 				clipped (mask)
 					/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018/ortho_2018_sm_nofire.tif
-					
-					
+			
