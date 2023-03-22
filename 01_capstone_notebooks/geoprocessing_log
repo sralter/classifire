@@ -252,4 +252,45 @@ Goal: clip orthoimage raster of santa monica mountains to the extent of the fire
 					-9999.0
 				clipped (mask)
 					/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018/ortho_2018_sm_nofire.tif
-			
+	It worked!
+	
+2023-03-21
+
+GDAL>Raster Miscellaneous>Retile
+Note: this will break the two images (fire/nofire) into a bunch of smaller images in an effort to build a collection of fire/nofire satellite images.
+	Fire images
+Input files
+	ortho_2018_sm_fire
+tile width: 100
+tile height: 100
+overlap: 0
+number of pyramids: 1
+output directory: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018_retile_fire
+csv file containing tile georeferencing: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018_fire_retile/retile_info_fire.csv
+This did not work.
+
+2023-03-22
+
+QGIS>Select fire/nofire layer>Export>Save As...>follow instructions here:
+https://gis.stackexchange.com/questions/221671/splitting-tif-image-into-several-tiles
+Note: this will attempt to create patches for image analysis.
+Output mode: raw data
+Format: GeoTIFF
+Check Create VRT
+File name: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018_retile_fire
+CRS: epsg:26911 - NAD83/UTM zone 11N
+extent: default, current layer
+resolution: default, current layer
+vrt tiles: default
+This did not work. Requires too much memory.
+
+Create Grid
+note: I'm hoping this will help me make patches
+grid type: Rectangle (Polygon)
+grid extent: same as ortho_2018_sm_fire
+horizontal spacing: 100m
+vertical spacing: 100m
+grid crs: EPSG:26911 - NAD83/UTM zone 11N
+grid output: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/grid/grid_spacing_100m.geojson
+
+
