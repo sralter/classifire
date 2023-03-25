@@ -293,4 +293,12 @@ vertical spacing: 100m
 grid crs: EPSG:26911 - NAD83/UTM zone 11N
 grid output: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/grid/grid_spacing_100m.geojson
 
+2023-03-23
+
+Goal: Practice on a smaller scale image analysis with neural networks
+Task: extract fire and nofire image from a .tif file.
+Tool: clip raster by mask layer
+Input layer: m_3411849_se_11_060_20180722.tif [EPSG:26911] /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/orthoimagery/2018/m_3411849_se_11_060_20180722.tif
+mask layer: santa_monica_fire_perimeters_nofire_fix03_buff [EPSG:26911] /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters_nofire_fix03_buff.geojson
+assign a specific nodata value to output bands: -9999
 
