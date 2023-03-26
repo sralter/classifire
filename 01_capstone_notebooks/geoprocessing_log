@@ -307,3 +307,5 @@ assign a specific nodata value to output bands: -9999
 Goal: make rasters that are wholly from fire or nofire areas, to make the patchifying process easier for the CNN image analysis. I will use the rasters that have black bars around them. This is because these rasters were extracted from polygon masks that weren't perfectly N/S/E/W trending. Since rasters need to be perfectly square, bars were created to make the difference. I chose two areas to serve as nofire locations: one near farms and another in the city. Two areas were used as fire locations and these I thought were from varied landscapes within the mountains.
 Tool: tile index and clip raster by mask layer. The tile index creates a polygon from the boundary of the raster-with-the-bars, so that I can use the new polygon to extract a bar-free raster.
 
+Goal: make patches from the .tif fire/nofire images
+Tool: select .tif image in layers panel > export > check VRT option, set rows and columns to be 128x128
