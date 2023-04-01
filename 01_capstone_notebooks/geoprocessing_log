@@ -309,3 +309,91 @@ Tool: tile index and clip raster by mask layer. The tile index creates a polygon
 
 Goal: make patches from the .tif fire/nofire images
 Tool: select .tif image in layers panel > export > check VRT option, set rows and columns to be 128x128
+
+2023-03-31
+
+Goal: need to match each image in the image analysis step to an ~exact geographic datapoint. This ensures that the model is 1:1. In other words, I want a point created in the center of each image patch.
+Tool: Vector>Research>Regular Points.
+Notes: Make sure to check the cellsize of the individual image patches, which would have to be created already with the VRT option (this can be found when exporting a file).
+
+Goal: merge the fire and the nofire point sets into two sets
+Tool: Vector>Data Management>Merge vector layers
+Notes: nofire done. 04-01 update: fire done.
+
+2023-04-01
+
+Goal: reproject elevation and aspect layers
+Tool: GDAL>Raster projections>Warp (reproject)
+Notes: 
+	elevation done. /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/elevation/elevation_epsg26911.tif
+	aspect done. /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/aspect/aspect_epsg26911.tif
+
+Goal: Append raster values to point layers. Specifically, elevation.
+Tool: Sample Raster Values
+	input layer: patch_cityfarm_points
+	raster layer: elevation_epsg26911
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_nofire_elev.geojson
+	input layer: patch_fire12_points
+	raster layer elevation_epsg26911
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire_elev.geojson
+
+Goal: Append aspect values to point layers.
+Tool: sample raster values
+	input layer: patch_nofire_elev
+	raster layer: aspect_epsg26911
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_nofire_elev_asp.geojson
+	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire_elev_asp.geojson
+	
+Goal: how to connect the points to the perimeters to see where they overlap
+Tool: join attributes by location. I will also have to join attributes that DO NOT overlap by location
+	join to features in: santa_monica_fire_perimeters_le2018
+		These are all perimeters that are through 2018 because the satellite image that I have is taken from 2018.
+			file:///Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters_le2018.geojson
+	features they: contain
+	by comparing to: patch_fire_elev_asp
+	file:///Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire_elev_asp.geojson
+	fields to add: id, elevation1, aspect1
+	join type: create separate feature for each matching feature (one-to-many)
+	joined field prefix: point_
+	joined layer: patch_fire_join
+	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire_join.geojson
+	
+Goal: generate a layer of points that do not intersect any polygons. I could use the vector>geoprocessing>difference tool, but I don't have to, since the nofire points are already in areas without any fires. See: 
+Vector>Geoprocessing Tools>Difference
+Note: this should do what I want - clip the points layer to only include points that 
+	input layer
+		sm_points_005_elev_asp
+	overlay layer
+		santa_monica_fire_perimeters
+	difference
+		sm_elev_asp_join_perim_nofire
+		/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_nofire.geojson
+
+
+
+
+
+
+Join attributes by Location
+Note: this will join the elev and asp point layer to every instance where there is overlap with the santa monica fire perimeters
+    join to features in
+        santa_monica_fire_perimeters
+        /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/perimeters_sm/santa_monica_fire_perimeters.geojson
+    features they
+        contain
+    by comparing to
+        sm_points_005_elev_asp
+    Fields to add
+    	(all fields)
+    join type
+        create separate feature for each matching feature (one-to-many)
+    joined field prefix
+        perim_
+    joined layer
+    	sm_elev_asp_join_perim_contain
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elev_asp_join_perim_contain.geojson
+        sm_elevasp_perim_join_contain
+    Unjoinable features from first layer
+    	sm_elevasp_perim_join_unjoinable
+    	/Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/sm_elevasp_perim_join_unjoinable.geojson
+
