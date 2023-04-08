@@ -371,8 +371,77 @@ Note: this should do what I want - clip the points layer to only include points 
 
 2023-04-07
 
+Goal: redo extraction of geographic data, this time including slope data.
+Note: I will run in sequence: city, farm, fire1, fire2
+city and aspect
+Tool: Sample Raster Values
+	input layer: patch_city_points
+	raster layer: aspect_epsg26911
+	output column prefix: aspect
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_city_asp.geojson
+	input layer: patch_farm_points
+	raster layer: aspect_epsg26911
+	output column prefix: aspect
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_farm_asp.geojson
+	input layer: patch_fire1_points
+	raster layer: aspect_epsg26911
+	output column prefix: aspect
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire1_asp.geojson
+	input layer: patch_fire2_points
+	raster layer: aspect_epsg26911
+	output column prefix: aspect
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire2_asp.geojson
+Now, elevation:
+	input layer: patch_city_asp
+	raster layer: elevation_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_city_asp_elev.geojson
+	input layer: patch_farm_asp
+	raster layer: elevation_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_farm_asp_elev.geojson
+	input layer: patch_fire1_asp
+	raster layer: elevation_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire1_asp_elev.geojson
+	input layer: patch_fire2_asp
+	raster layer: elevation_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire2_asp_elev.geojson
+Now, slope:
+	input layer: patch_city_asp_elev
+	raster layer: slope_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_city_asp_elev_slope.geojson
+	input layer: patch_farm_asp_elev
+	raster layer: slope_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_farm_asp_elev_slope.geojson
+	input layer: patch_fire1_asp_elev
+	raster layer: slope_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire1_asp_elev_slope.geojson
+	input layer: patch_fire2_asp_elev
+	raster layer: slope_epsg26911
+	output column prefix: elevation
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire2_asp_elev_slope.geojson
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+	input layer: patch_fire12_points
+	raster layer elevation_epsg26911
+	sampled layer: /Users/sra/Desktop/Data_Science_2023/_capstone/00_capstone_data/shapefiles/joins/patch_fire_elev.geojson
 
 
 
