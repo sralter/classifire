@@ -49,9 +49,10 @@ _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
      -  BigEarthNet[^5] suggested the **pre-trained VGG19 model** to be sufficient, so I used that with **Tensorflow-Keras** and **added a final dense layer with two output nodes** to represent the fire/nofire categories required by this project.
      -  With **20,025,410 total parameters**, I deemed the model more than sufficient for the project’s needs.
      -  After training, **the model achieved an accuracy of 95.6%** on classifying all the images.
-     -  Figure 4 shows typical images in the set.
+     -  **Figure 4** shows typical images in the set as well as the locations of the two areas (fire and non-fire) that I used to feed the models.
 
 <img width="623" alt="Figure 4: examples of fire and nofire satellite images" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/ed8122e2-a2be-4545-bee6-56b5a3ba570a">
+<img width="1303" alt="Figure 3: Map of the sections within the study area used to feed the models" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/d1121556-5d5f-4fbf-a64e-065752f546f7">
 
   -  _Metamodel_
      -  To construct the metamodel, I **extracted the predictions from the topographic and imagery datasets, used them as features**, and ran the two through a **scikit-learn `LogisticRegression`, which achieved over 99% accuracy**. This concluded the modeling portion of the project.
