@@ -43,7 +43,7 @@ _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
     - Various models were tested, including `naive_bayes`, `Bernoulli` and `Gauss`, `XGBClassifier`, `RandomForestClassifier`, `AdaBoost`, and `GradientBoostingClassifier`, with `GradientBoostingClassifier` **achieving the highest accuracy**.
     - Grid search was employed to optimize the GradientBoostingClassifier model, but the best accuracy remained the same with specific parameter values.
 
-<img width="708" alt="Table 1: Summary statistics by Fire/Nofire areas" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/d71e55b1-ce79-4ef5-bcfe-a8cf6efd2168">
+<img width="696" alt="Table 1: Summary statistics by fire/nofire areas" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/918a9941-a27b-4c09-8536-cb4b0ddac3e4">
 
   -  _Satellite Imagery_  
      -  BigEarthNet[^5] suggested the **pre-trained VGG19 model** to be sufficient, so I used that with **Tensorflow-Keras** and **added a final dense layer with two output nodes** to represent the fire/nofire categories required by this project.
@@ -51,7 +51,7 @@ _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
      -  After training, **the model achieved an accuracy of 95.6%** on classifying all the images.
      -  Figure 4 shows typical images in the set.
 
-<img width="623" alt="Screenshot 2023-07-17 at 11 36 08" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/ed8122e2-a2be-4545-bee6-56b5a3ba570a">
+<img width="623" alt="Figure 4: examples of fire and nofire satellite images" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/ed8122e2-a2be-4545-bee6-56b5a3ba570a">
 
   -  _Metamodel_
      -  To construct the metamodel, I **extracted the predictions from the topographic and imagery datasets, used them as features**, and ran the two through a **scikit-learn `LogisticRegression`, which achieved over 99% accuracy**. This concluded the modeling portion of the project.
@@ -61,6 +61,32 @@ _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
 - The project serves as a **proof-of-concept**, demonstrating the capabilities of a machine-learning model using remotely-sensed data for predicting wildfire risk. **Future iterations can expand by incorporating weather and time series analysis** and **testing the model on different landscapes**.
 - Despite limitations, such as lack of high-resolution weather data, **the project shows promise for developing a robust wildfire risk prediction model** with broader data and automated GIS workflows.
 - **Publishing the model in a more accessible manner** could provide communities with **valuable insights into their wildfire risk**.
+
+## Postscript: Commentary on why the accuracy is so high
+* Accuracy is almost 100%, which is suspiciously high
+* Since the model was trained on either 100% burned areas or 100% unburned areas, it only knows the clearly-delineated cases.
+* Furthermore, when tested, the model was only given 100% burned or unburned areas
+* The unburned area was a city center. There would never be a wildfire in a concrete jungle
+* The opposite is similarly always true: in the mountains, away from all civilization, fires are extremely likely and are much harder to combat
+
+## Extra goodies
+- Correlation matrix of the geographic data:  
+<img width="727" alt="Correlation matrix of the geographic data" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/d88c52a4-bb47-42c6-a990-91650ba1fa95">
+
+- Summary of models and results for TopoData:  
+<img width="1255" alt="Summary of models and results for TopoData" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/ee414012-b4b3-4a66-81f0-be9cbf02e35e">
+
+- Summary of satellite imagery model:  
+<img width="704" alt="Summary of satellite imagery model" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/de5028eb-a558-41ef-9731-875edda6c3f8">
+
+- Summary of metamodel:  
+<img width="704" alt="Summary of metamodel" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/611ccc27-c576-4043-930e-eb4929254e67">
+
+- Satellite image and historic wildfire boundaries (up to 2018):  
+<img width="1319" alt="Satellite image and historic wildfire boundaries (up to 2018)" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/3dce0beb-fbaf-4b8a-abad-da2250486b8c">
+
+- Satellite image and hillshade of study area:  
+<img width="1320" alt="Satellite image and hillshade of study area" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/b6c75336-f339-4709-8f26-a580dd9b6498">
 
 [^1]: [https://www.fire.ca.gov/incidents/2020/]
 [^2]: [https://report.ipcc.ch/ar6syr/pdf/IPCC_AR6_SYR_SPM.pdf]
