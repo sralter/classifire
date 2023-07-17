@@ -77,10 +77,10 @@ _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
 <img width="1255" alt="Summary of models and results for TopoData" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/ee414012-b4b3-4a66-81f0-be9cbf02e35e">
 
 - Summary of satellite imagery model:  
-<img width="704" alt="Summary of satellite imagery model" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/de5028eb-a558-41ef-9731-875edda6c3f8">
+<img width="726" alt="Summary of satellite imagery model" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/11557b3f-2952-4ae1-95cc-4ca9d158ed11">
 
 - Summary of metamodel:  
-<img width="704" alt="Summary of metamodel" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/611ccc27-c576-4043-930e-eb4929254e67">
+<img width="726" alt="Summary of metamodel" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/fb34dc97-acd4-4e0a-a8e7-891363b49f2e">
 
 - Satellite image and historic wildfire boundaries (up to 2018):  
 <img width="1319" alt="Satellite image and historic wildfire boundaries (up to 2018)" src="https://github.com/sralter/brainstation_2023_ds_capstone/assets/25013680/3dce0beb-fbaf-4b8a-abad-da2250486b8c">
