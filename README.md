@@ -1,4 +1,4 @@
-# brainstation_2023_ds_capstone
+# Classi**FIRE**
 _Samuel Alter's BrainStation 2023 Data Science Capstone Project, Spring 2023_
 
 ## Motivation
